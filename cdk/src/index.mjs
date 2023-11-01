@@ -10,8 +10,14 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export async function handler(event) {
   console.log(event);
+
+  const path = event.path;
+  if (path !== "/") {
+    return;
+  }
+
   const count = await getCount();
-  const nextCount = count + 1;
+  const nextCount = count + 2;
   await saveCount(nextCount);
   return nextCount;
 }
