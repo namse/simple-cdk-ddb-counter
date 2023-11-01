@@ -6,6 +6,9 @@ import { MyCdkStack } from "../lib/my-cdk-stack";
 const app = new cdk.App();
 
 const branchName = process.env.BRANCH_NAME;
+if (!branchName) {
+  throw new Error("BRANCH_NAME is not defined");
+}
 const stackName = `MyCdkStack-${branchName}`;
 
 new MyCdkStack(app, stackName, {
