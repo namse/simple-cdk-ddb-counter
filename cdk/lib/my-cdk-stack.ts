@@ -1,21 +1,11 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import * as s3 from "aws-cdk-lib/aws-s3";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as path from "path";
 
 export class MyCdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
-    const bucket = new s3.Bucket(this, "Bucket", {
-      blockPublicAccess: new s3.BlockPublicAccess({
-        blockPublicAcls: false,
-        blockPublicPolicy: false,
-        ignorePublicAcls: false,
-        restrictPublicBuckets: false,
-      }),
-    });
 
     const ddb = new cdk.aws_dynamodb.Table(this, "Table", {
       partitionKey: { name: "pk", type: cdk.aws_dynamodb.AttributeType.STRING },
