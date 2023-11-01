@@ -14,6 +14,11 @@ export class MyCdkStack extends cdk.Stack {
 
     const ddb = new cdk.aws_dynamodb.Table(this, "Table", {
       partitionKey: { name: "pk", type: cdk.aws_dynamodb.AttributeType.STRING },
+      deletionProtection: branchName === "main",
+      removalPolicy:
+        branchName === "main"
+          ? cdk.RemovalPolicy.RETAIN
+          : cdk.RemovalPolicy.DESTROY,
     });
 
     const myLambda = new lambda.Function(this, "Lambda", {
